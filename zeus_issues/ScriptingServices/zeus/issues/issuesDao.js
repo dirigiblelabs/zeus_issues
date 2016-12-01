@@ -17,7 +17,7 @@ exports.create = function(entity) {
         statement.setInt(++i, id);
         statement.setString(++i, entity.issue_name);
         statement.setString(++i, entity.issue_description);
-        statement.setString(++i, user.getNamer());
+        statement.setString(++i, user.getName());
         statement.setTimestamp(++i, new Date());
         statement.setString(++i, entity.issue_assignee);
         statement.setInt(++i, entity.issue_project_id);
