@@ -10,7 +10,7 @@ var user = require("net/http/user");
 exports.create = function(entity) {
     var connection = datasource.getConnection();
     try {
-        var sql = 'INSERT INTO ZEUS_ISSUES (ISSUE_ID,ISSUE_NAME,ISSUE_DESCRIPTION,ISSUE_AUTHOR,ISSUE_DATE,ISSUE_ASSIGNEE,ISSUE_PROJECT_ID,ISSUE_STATUS) VALUES (?,?,?,?,?,?,?,?)';
+        var sql = 'INSERT INTO ZEUS_ISSUES (ISSUE_ID,ISSUE_NAME,ISSUE_DESCRIPTION,ISSUE_AUTHOR,ISSUE_DATE,ISSUE_ASSIGNEE,ISSUE_PROJECT_ID,ISSUE_ISTATUS_ID) VALUES (?,?,?,?,?,?,?,?)';
         var statement = connection.prepareStatement(sql);
         var i = 0;
         var id = datasource.getSequence('ZEUS_ISSUES_ISSUE_ID').next();
@@ -21,7 +21,7 @@ exports.create = function(entity) {
         statement.setTimestamp(++i, new Date());
         statement.setString(++i, entity.issue_assignee);
         statement.setInt(++i, entity.issue_project_id);
-        statement.setInt(++i, entity.issue_status);
+        statement.setInt(++i, entity.issue_istatus_id);
 		issuesDaoExtensionsUtils.beforeCreate(connection, entity);
         statement.executeUpdate();
         issuesDaoExtensionsUtils.afterCreate(connection, entity);
@@ -84,14 +84,14 @@ exports.list = function(limit, offset, sort, desc) {
 exports.update = function(entity) {
     var connection = datasource.getConnection();
     try {
-        var sql = 'UPDATE ZEUS_ISSUES SET ISSUE_NAME = ?,ISSUE_DESCRIPTION = ?,ISSUE_ASSIGNEE = ?,ISSUE_PROJECT_ID = ?,ISSUE_STATUS = ? WHERE ISSUE_ID = ?';
+        var sql = 'UPDATE ZEUS_ISSUES SET ISSUE_NAME = ?,ISSUE_DESCRIPTION = ?,ISSUE_ASSIGNEE = ?,ISSUE_PROJECT_ID = ?,ISSUE_ISTATUS_ID = ? WHERE ISSUE_ID = ?';
         var statement = connection.prepareStatement(sql);
         var i = 0;
         statement.setString(++i, entity.issue_name);
         statement.setString(++i, entity.issue_description);
         statement.setString(++i, entity.issue_assignee);
         statement.setInt(++i, entity.issue_project_id);
-        statement.setInt(++i, entity.issue_status);
+        statement.setInt(++i, entity.issue_istatus_id);
         var id = entity.issue_id;
         statement.setInt(++i, id);
 		issuesDaoExtensionsUtils.beforeUpdate(connection, entity);
@@ -171,7 +171,7 @@ exports.metadata = function() {
 			type: 'integer'
 		},
 		{
-			name: 'issue_status',
+			name: 'issue_istatus_id',
 			type: 'integer'
 		},
 		]
@@ -193,7 +193,7 @@ function createEntity(resultSet) {
     }
     result.issue_assignee = resultSet.getString('ISSUE_ASSIGNEE');
 	result.issue_project_id = resultSet.getInt('ISSUE_PROJECT_ID');
-	result.issue_status = resultSet.getInt('ISSUE_STATUS');
+	result.issue_istatus_id = resultSet.getInt('ISSUE_ISTATUS_ID');
     return result;
 }
 

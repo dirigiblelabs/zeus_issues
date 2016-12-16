@@ -31,7 +31,7 @@
   }
 </style>
 </head>
-<body style="margin-left: 20px">
+<body>
 <div ng-include="'header.html'"></div>
 
 	<div id="wrap" ng-controller="ManageController">
@@ -46,8 +46,8 @@
 			<table class="table table-condensed">
 				<thead>
 					<tr>
+						<th>#</th>
 						<th>Name</th>
-						<th>No</th>
 						<th>Description</th>
 						<th>Author</th>
 						<th>Date</th>
@@ -59,14 +59,14 @@
 				<tbody>
 					<tr class="selected-{{entry._selected_}}" ng-repeat="entry in data"
 						ng-click="showInfoForEntry(entry)">
-						<td nowrap><i class="fa fa-bug"></i> {{entry.issue_name}}</td>
-						<td>{{entry.issue_id}}</td>
+						<td nowrap><i class="fa fa-question-circle"></i> {{entry.issue_id}}</td>
+						<td nowrap>{{entry.issue_name}}</td>
 						<td>{{entry.issue_description}}</td>
 						<td>{{entry.issue_author}}</td>
-						<td>{{entry.issue_date}}</td>
+						<td>{{entry.issue_date | date:format}}</td>
 						<td>{{entry.issue_assignee}}</td>
-						<td>{{entry.issue_project_id}}</td>
-						<td align=center>{{entry.issue_status}}</td>
+						<td>{{entry.project_name}}</td>
+						<td>{{entry.istatus_name}}</td>
 					</tr>
 				</tbody>
 			</table>
@@ -93,7 +93,7 @@
 			<div>
 				<!-- input form -->
 				<div>
-					<label>No</label>
+					<label>#</label>
 					<input type="text" class="form-control" 
 						ng-model="selectedEntry.issue_id" readonly> <br>
 					<br>
@@ -107,20 +107,42 @@
 						ng-model="selectedEntry.issue_description"
 						ng-readonly="operation == 'show'" required="required">
 					<br>
+					<label>Author</label>
+					<input type="text" class="form-control" 
+						ng-model="selectedEntry.issue_author"
+						ng-readonly="operation == 'show'" required="required">
+					<br>
+					<label>Date</label>
+					<p class="input-group">
+		            	<input type="text" ng-model="selectedEntry.issue_date" class="form-control ng-pristine ng-valid ng-isolate-scope ng-valid-required ng-touched" 
+		               		uib-datepicker-popup="" is-open="issue_dateStatus.opened" 
+		               		datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" 
+		               		required="required" style="" ng-readonly="operation == 'show'">
+				        <span class="input-group-btn">
+				        	<button type="button" class="btn btn-default" ng-click="issue_dateOpen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+				        </span>
+		           	</p>
+					<br>
 					<label>Assignee</label>
 					<input type="text" class="form-control" 
 						ng-model="selectedEntry.issue_assignee"
 						ng-readonly="operation == 'show'" required="required">
 					<br>
 					<label>Project</label>
-					<input type="text" class="form-control" 
+					<input type="hidden" class="form-control" 
 						ng-model="selectedEntry.issue_project_id"
 						ng-readonly="operation == 'show'" required="required">
+					<div>
+						<select ng-model="selectedEntry.issue_project_id" ng-options="option.project_id as option.project_name for option in projects" ng-disabled="operation == 'show'" required="required"></select>	
+					</div>
 					<br>
 					<label>Status</label>
-					<input type="text" class="form-control" 
-						ng-model="selectedEntry.issue_status"
+					<input type="hidden" class="form-control" 
+						ng-model="selectedEntry.issue_istatus_id"
 						ng-readonly="operation == 'show'" required="required">
+					<div>
+						<select ng-model="selectedEntry.issue_istatus_id" ng-options="option.istatus_id as option.istatus_name for option in statuses" ng-disabled="operation == 'show'" required="required"></select>	
+					</div>
 					<br>
 				</div>
 				
@@ -145,11 +167,29 @@
 		angular.module('page').controller('ManageController', function ($scope, $http) {
 			
 			var url = '../../../js/zeus/issues/issues.js';
+			var urlView = '../../../js/zeus/issues/issues_view.js';
 
-			$http.get(url)
+			$http.get(urlView)
 				.success(function(data){
 					$scope.data = data;
 				});
+			
+			
+			
+			var urlProjects = '../../../js/zeus/projects/projects.js';
+				
+			$http.get(urlProjects)
+				.success(function(projects){
+					$scope.projects = projects;
+				});
+			
+			var urlStatuses = '../../../js/zeus/issues/statuses.js';
+				
+			$http.get(urlStatuses)
+				.success(function(statuses){
+					$scope.statuses = statuses;
+				});
+			
 			
 			$scope.selectedEntry;
             $scope.operation = 'show';
@@ -298,6 +338,12 @@
 			$scope.formats = ['yyyy/MM/dd', 'dd-MMMM-yyyy', 'dd.MM.yyyy', 'shortDate'];
   			$scope.format = $scope.formats[0];
 
+			$scope.issue_dateOpen = function($event) {
+				$scope.issue_dateStatus.opened = true;
+			};
+			$scope.issue_dateStatus = {
+				opened: false
+			};
 			
 			
 			//pagination

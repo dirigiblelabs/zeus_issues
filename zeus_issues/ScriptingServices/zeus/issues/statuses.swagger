@@ -1,0 +1,103 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "0.0.0",
+        "title": "Zeus_issue_status Entity Service",
+        "description":"This is a RESTful web service for listing, viewing and managing entities of the type 'Zeus_issue_status'"
+    },
+    "basePath":"/services",
+    "tags":[
+      {
+         "name":"Zeus_issue_status",
+         "description":"View and manage Zeus_issue_status objects"
+      }
+    ],
+    "paths": {
+        "/js/zeus/issues/statuses.js": {
+            "get": {
+            	"tags":[
+               		"Zeus_issue_status"
+            	],
+                "description": "Gets 'Zeus_issue_status' objects.\n",
+                "parameters": [
+                    {
+                        "name": "count",
+                        "in": "query",
+                        "description": "Count of all the records",
+                        "required": false,
+                        "type": "boolean"
+                    },
+                    {
+                        "name": "istatus_id",
+                        "in": "query",
+                        "description": "Identifier of the 'Zeus_issue_status' object",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "metadata",
+                        "in": "query",
+                        "description": "Metadata of the 'Zeus_issue_status' object",
+                        "required": false,
+                        "type": "boolean"
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Limit of the objects list",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "description": "Offset of the objects list",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "Sort parameter",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "desc",
+                        "in": "query",
+                        "description": "Descending order",
+                        "required": false,
+                        "type": "boolean"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema":{
+		                     "$ref":"#/definitions/Zeus_issue_status"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions":{
+        "Zeus_issue_status": {
+	        "type":"object",
+	        "properties": {
+        		"istatus_id": {
+	            	"type": 
+        "integer"
+	    		}
+				,
+        		"istatus_name": {
+	            	"type": 
+        "string"
+	    		}
+	        }
+        }
+	}
+}

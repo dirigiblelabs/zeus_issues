@@ -1,0 +1,14 @@
+{
+  "tableName":"ZEUS_ISSUE_STATUS",
+  "tableType":"TABLE",
+  "serviceName":"statuses.js",
+  "libraryName":"statuses_lib.js",
+  "specification":"statuses.swagger",
+  "getEnabled":"true",
+  "postEnabled":"false",
+  "putEnabled":"false",
+  "deleteEnabled":"false",
+  "countEnabled":"true",
+  "offsetAndLimitEnabled":"true",
+  "metadataEnabled":"true"
+}

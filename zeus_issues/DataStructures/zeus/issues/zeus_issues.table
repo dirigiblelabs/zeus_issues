@@ -66,7 +66,7 @@
       }
       ,
       {
-        "name":"ISSUE_STATUS",
+        "name":"ISSUE_ISTATUS_ID",
         "type":"INTEGER",
         "length":"0",
         "notNull":"true",

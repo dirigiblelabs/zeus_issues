@@ -1,0 +1,14 @@
+{
+  "tableName":"ZEUS_ISSUES_VIEW",
+  "tableType":"VIEW",
+  "serviceName":"issues_view.js",
+  "libraryName":"issues_view_lib.js",
+  "specification":"issues_view.swagger",
+  "getEnabled":"true",
+  "postEnabled":"false",
+  "putEnabled":"false",
+  "deleteEnabled":"false",
+  "countEnabled":"true",
+  "offsetAndLimitEnabled":"true",
+  "metadataEnabled":"true"
+}
