@@ -1,0 +1,32 @@
+{
+  "tableName":"ZEUS_ISSUES_BOARD_TAG",
+  "columns":
+    [
+      {
+        "name":"ZEUS_ISSUESBT_ID",
+        "type":"BIGINT",
+        "length":"0",
+        "notNull":"true",
+        "primaryKey":"true",
+        "defaultValue":""
+      }
+      ,
+      {
+        "name":"ZEUS_ISSUESBT_ZEUS_ISSUESB_ID",
+        "type":"BIGINT",
+        "length":"0",
+        "notNull":"true",
+        "primaryKey":"false",
+        "defaultValue":""
+      }
+      ,
+      {
+        "name":"ZEUS_ISSUESBT_ANN_ID",
+        "type":"BIGINT",
+        "length":"0",
+        "notNull":"true",
+        "primaryKey":"false",
+        "defaultValue":""
+      }
+    ]
+}
