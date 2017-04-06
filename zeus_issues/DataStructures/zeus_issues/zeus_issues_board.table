@@ -21,7 +21,7 @@
       {
         "name":"ZEUS_ISSUESB_DESCRIPTION",
         "type":"VARCHAR",
-        "length":"10000",
+        "length":"4000",
         "notNull":"false",
         "primaryKey":"false",
         "defaultValue":""
